@@ -85,7 +85,17 @@ public class Make_xml {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource domSource = new DOMSource(doc);
-            text = text.substring(0,text.lastIndexOf("\\"));
+            String OS = System.getProperty("os.name").toLowerCase();
+            if(OS.contains("win"))
+            {
+                text = text.substring(0,text.lastIndexOf("\\"));
+            }
+            else if(OS.contains("nix") || OS.contains("nux") || OS.contains("aix"))
+            {
+                text = text.substring(0,text.lastIndexOf("/"));
+            }
+
+
 
             StreamResult streamResult = new StreamResult(new File(text + "/test.xml"));
 
