@@ -41,7 +41,7 @@ import org.xml.sax.SAXException;
 
 public class MainFrame extends JFrame {
 
-    private static Read_file read = new Read_file();
+    private static ReadFile read = new ReadFile();
     private static JFrame mainPanel = new JFrame("Test");
     private static JButton b1 = new JButton("...");
     private static JButton b2 = new JButton("Get Data");
@@ -53,7 +53,6 @@ public class MainFrame extends JFrame {
     private static ButtonGroup bg=new ButtonGroup();
     private static JTextArea ta = new JTextArea();
     private static JScrollPane sp = new JScrollPane(ta);
-
 
     public static void initialize(){
         //Creates Gui, buttons, and entries.
@@ -93,9 +92,11 @@ public class MainFrame extends JFrame {
         mainPanel.add(t1);
         
         //Gives buttons actions
+        
+        b1.addActionListener(ae -> setUpButtonDirectory());
+        b2.addActionListener(ae -> getData());
 
-        setUpButtonDirectory(b1);
-        getData(b2);
+        
 
 
 
@@ -113,72 +114,60 @@ public class MainFrame extends JFrame {
 
     }
 
+
+ 
    
     //Creates the action for the "..." button which allows the user to pick a file to get data from.
 
-    public static void setUpButtonDirectory(JButton button)
+    public static void setUpButtonDirectory()
     {
-        
-        ActionListener buttonListener = new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                    JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser();
 
             
 
-                    int r = chooser.showSaveDialog(null);
+        int r = chooser.showSaveDialog(null);
  
                     // if the user selects a file
-                    if (r == JFileChooser.APPROVE_OPTION)
-                    {
+        if (r == JFileChooser.APPROVE_OPTION)
+        {
 
-                        String text = chooser.getSelectedFile().getAbsolutePath();
-                        t1.setText(text);
-                    }
+            String text = chooser.getSelectedFile().getAbsolutePath();
+            t1.setText(text);
+        }
                     
                     
                 
-            }
-
-        };
-        button.addActionListener(buttonListener);
     }
+
 
     //Controls the "Get Data" button
 
-    public static void getData(JButton button)
+    public static void getData()
     {
-
-        ActionListener buttonListener = new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("getData Start");
-                //ta.setText(" ");
-                //Gets text from Jtextfield field.
-                String text = t1.getText();
-                //Sets the type to be sorted
-                String type = " ";
-                if(r1.isSelected()){    
-                    type = "Name";
-                }    
-                else if(r2.isSelected()){    
-                    type = "Company";    
-                }
-                else if(r3.isSelected()){    
-                    type = "Color";    
-                }
-                else{    
-                    type = "Date";    
-                }           
-                //Checks if the file selected is a file    
-                File f = new File(text);
-                if(f.isFile()){
+            System.out.println("getData Start");
+            //Gets text from Jtextfield field.
+            String text = t1.getText();
+            //Sets the type to be sorted
+            String type = " ";
+            if(r1.isSelected()){    
+                type = "Name";
+            }    
+            else if(r2.isSelected()){    
+                type = "Company";    
+            }
+            else if(r3.isSelected()){    
+                type = "Color";    
+            }
+            else{    
+                type = "Date";    
+            }           
+            //Checks if the file selected is a file    
+            File f = new File(text);
+            if(f.isFile()){
 
                 
                 //Reads the data in from the file by using read_file from Read_file.java.
-                read.read_file(text);
+                read.readfile(text);
                 //Gets the Arraylist Person that was read in from Read_file.java.
                 ArrayList<Person> People = read.getPeopleArray();
 
@@ -195,7 +184,7 @@ public class MainFrame extends JFrame {
                 //Runs toxml to create an xml file from the ArrayList<Person> People.
                 try {
 
-                    Make_xml run = new Make_xml(People, text);
+                    MakeXml run = new MakeXml(People, text);
                     run.toxml(run.getPeople(),run.getPath());
                 } catch (TransformerConfigurationException e1) {
                     // TODO Auto-generated catch block
@@ -208,19 +197,7 @@ public class MainFrame extends JFrame {
             }
                     
                 
-            }
-
-        };
-        button.addActionListener(buttonListener);
-    }
-
-
-
-
-
-
-
-
+        }
 
 
 

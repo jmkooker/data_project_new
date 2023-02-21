@@ -18,12 +18,12 @@ import org.w3c.dom.Node;
     
 
 
-public class Make_xml {
+public class MakeXml {
 
     final private ArrayList<Person> MyPeople;
     final private String MyPath;
 
-    public Make_xml(ArrayList<Person> MyPeople, String MyPath)
+    public MakeXml(ArrayList<Person> MyPeople, String MyPath)
     {
         this.MyPeople = MyPeople;
         this.MyPath = MyPath;

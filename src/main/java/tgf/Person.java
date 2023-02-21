@@ -14,16 +14,16 @@ public class Person {
     
     final private String name;
     final private String company;
-    final private Color MyColor;
-    final private Date MyDate;
+    final private Color myColor;
+    final private Date myDate;
 
     //Creation of the Person object.
-    public Person(String name, String company, Color MyColor, Date MyDate) 
+    public Person(String name, String company, Color myColor, Date myDate) 
     {
         this.name = name;
         this.company = company;
-        this.MyColor = MyColor;
-        this.MyDate = MyDate;
+        this.myColor = myColor;
+        this.myDate = myDate;
     }
 
 
@@ -53,13 +53,13 @@ public class Person {
     //getColor returns Color for Person
     public Color getColor()
     {
-        return this.MyColor;
+        return this.myColor;
     }
 
     //getColorString returns String Color for Person.
     public String getColorString()
     {
-        int theColor = this.MyColor.getRGB();
+        int theColor = this.myColor.getRGB();
         String colorName = " ";
  
 
@@ -193,14 +193,14 @@ public class Person {
     public Date getDate()
     {
         
-        return this.MyDate;
+        return this.myDate;
     }
 
     //getDateString returns the String Date in yyyy/MM/dd format.
     public String getDateString()
     {   
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-        return formatter.format(this.MyDate);
+        return formatter.format(this.myDate);
     }
 
 
@@ -210,13 +210,13 @@ public class Person {
     {
         System.out.println("Get Information");
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-        System.out.println(this.MyDate);
-        System.out.println(formatter.format(this.MyDate)) ;
+        System.out.println(this.myDate);
+        System.out.println(formatter.format(this.myDate)) ;
         String Information = 
         this.name + "\n" +  
         this.company + "\n" + 
-        colortoString(this.MyColor) + "\n" + 
-        formatter.format(this.MyDate) + "\n\n"  ;
+        colortoString(this.myColor) + "\n" + 
+        formatter.format(this.myDate) + "\n\n"  ;
         return Information;
 
     }
