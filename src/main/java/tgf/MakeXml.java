@@ -1,5 +1,7 @@
 package tgf;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -18,12 +20,12 @@ import org.w3c.dom.Node;
     
 
 
-public class Make_xml {
+public class MakeXml {
 
-    final private ArrayList<Person> MyPeople;
+    final private ArrayList<MyPerson> MyPeople;
     final private String MyPath;
 
-    public Make_xml(ArrayList<Person> MyPeople, String MyPath)
+    public MakeXml(ArrayList<MyPerson> MyPeople, String MyPath)
     {
         this.MyPeople = MyPeople;
         this.MyPath = MyPath;
@@ -31,7 +33,7 @@ public class Make_xml {
 
     }
 
-    public ArrayList<Person> getPeople()
+    public ArrayList<MyPerson> getPeople()
     {
         return this.MyPeople;
     }
@@ -42,13 +44,13 @@ public class Make_xml {
     }
 
     //Method to Create an XML file using DocumentBuilderFactory.
-    public static void toxml(ArrayList<Person> People, String text) throws TransformerConfigurationException
+    public static void toXml(ArrayList<MyPerson> People, String text) throws TransformerConfigurationException
     {
         
 
         try {
 
-            //ArrayList<Person> People = this.MyPeople;
+            //ArrayList<MyPerson> People = this.MyPeople;
             //String text = this.MyPath;    
             //Creates DocumentBuilderFactory and DocumentBuilder.
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -65,13 +67,13 @@ public class Make_xml {
             String MyDate = "";
             String MyColor = "";
             int id = 1;
-            //Loops through the ArrayList<Person> to extract all of the values that will go into XML.
-            for(Person x : People)
+            //Loops through the ArrayList<MyPerson> to extract all of the values that will go into XML.
+            for(MyPerson x : People)
             {
                 Name = x.getName();
                 Company = x.getCompany();
-                MyDate = x.getDateString();
-                MyColor = x.getColorString();
+                MyDate = x.getDateString(x.getDate());
+                MyColor = x.colortoString(x.getColor());
                 //Adds elements to the XML with method createUser.
                 //createUser uses a method called createUserElement.
                 //Appends to root.
@@ -85,7 +87,19 @@ public class Make_xml {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource domSource = new DOMSource(doc);
-            String OS = System.getProperty("os.name").toLowerCase();
+            
+            
+            File file = new File(text);
+            String fileSeparator = file.separator;
+            Path path = Paths.get(text);
+            String filepath = path.getParent().toString() + fileSeparator + "test.xml";
+            
+            
+            
+            
+            
+            /*
+            String OS = System.getProperty("os.name").toLowerCase();          
             if(OS.contains("win"))
             {
                 text = text.substring(0,text.lastIndexOf("\\"));
@@ -94,10 +108,10 @@ public class Make_xml {
             {
                 text = text.substring(0,text.lastIndexOf("/"));
             }
+            */
 
 
-
-            StreamResult streamResult = new StreamResult(new File(text + "/test.xml"));
+            StreamResult streamResult = new StreamResult(new File(filepath));
 
             transformer.transform(domSource, streamResult);
  

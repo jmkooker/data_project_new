@@ -41,7 +41,7 @@ import org.xml.sax.SAXException;
 
 public class MainFrame extends JFrame {
 
-    private static Read_file read = new Read_file();
+    private static ReadFile read = new ReadFile();
     private static JFrame mainPanel = new JFrame("Test");
     private static JButton b1 = new JButton("...");
     private static JButton b2 = new JButton("Get Data");
@@ -180,23 +180,29 @@ public class MainFrame extends JFrame {
                 //Reads the data in from the file by using read_file from Read_file.java.
                 read.read_file(text);
                 //Gets the Arraylist Person that was read in from Read_file.java.
-                ArrayList<Person> People = read.getPeopleArray();
+                ArrayList<MyPerson> People = read.getPeopleArray();
 
                 //Sorts the array based on the sort "type".
-                Person sort = new Person(null,null,null,null);
+                MyPerson sort = People.get(0);
                 People = sort.sortPeopleArray(type ,People);
 
                 //Appends the text from the array to the textarea.
-                for(Person x : People)
+                
+                
+                
+                
+                
+                for(MyPerson x : People)
                 {   
-                    ta.append(x.getInformation());
+
+                    ta.append(x.getName() + "\n" + x.getCompany() + "\n" + x.colortoString(x.getColor()) + "\n" + x.getDateString(x.getDate()) + "\n\n");
 
                 }
                 //Runs toxml to create an xml file from the ArrayList<Person> People.
                 try {
 
-                    Make_xml run = new Make_xml(People, text);
-                    run.toxml(run.getPeople(),run.getPath());
+                    MakeXml run = new MakeXml(People, text);
+                    run.toXml(run.getPeople(),run.getPath());
                 } catch (TransformerConfigurationException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();

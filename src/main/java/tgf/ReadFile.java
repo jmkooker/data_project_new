@@ -9,20 +9,16 @@ import java.util.Date;
 import java.util.Scanner; // Import the Scanner class to read text files
 
 
-import tgf.Person.compareName;
-import tgf.Person.compareCompany;
-import tgf.Person.compareDate;
-import tgf.Person.compareColor;
 
 import java.awt.*;
 import java.awt.Color;
 import java.lang.reflect.Field;
 
-public class Read_file
+public class ReadFile
 {
 
     //Create all values that will be used in the class.
-    private ArrayList<Person> People = new ArrayList<Person>();
+    private ArrayList<MyPerson> People = new ArrayList<MyPerson>();
     private int number_of_values; 
     private Date MyDate;
     private String Name;
@@ -38,7 +34,7 @@ public class Read_file
     {
         //Clears the People ArrayList if button is hit again.
         //Creates the Scanner object
-        People = new ArrayList<Person>();
+        People = new ArrayList<MyPerson>();
         String next_line;
         String split_variable[] = {" ", " "};
         File myObj = new File(text);
@@ -105,7 +101,9 @@ public class Read_file
                {
                     //Adds Person to ArrayList<Person> People
                     
-                    People.add(new Person(Name, Company, MyColor, MyDate));
+                    MyPerson addperson = ImmutableMyPerson.builder().name(Name).company(Company).color(MyColor).date(MyDate).build();
+                    People.add(addperson);
+                    //MyPerson steve =  ImmutableMyPerson.builder().name("test").company("test").color(null).date(null).build();
                     split_variable[0] = " ";
                     split_variable[0] = " ";
                     System.out.println("Person Added");
@@ -129,7 +127,7 @@ public class Read_file
     }
 
 
-    public ArrayList<Person> getPeopleArray()
+    public ArrayList<MyPerson> getPeopleArray()
     {   
         //Returns ArrayList<Person> People
         return People;
